@@ -1,10 +1,12 @@
 import json
 import re
+import requests
+import hmac
+import hashlib
+import base64
+from urllib.parse import quote
 from datetime import datetime
 import pytz
-from alibabacloud_dm20151123.client import Client as DmClient
-from alibabacloud_tea_openapi import models as open_api_models
-from alibabacloud_dm20151123 import models as dm_models
 from config import ALIYUN_ACCESS_KEY_ID, ALIYUN_ACCESS_KEY_SECRET, ALIYUN_REGION, EMAIL_FROM_ADDRESS
 
 def send_email(body, EMAIL_RECEIVER, EMAIL_TITLE, timeoffset):
@@ -22,31 +24,52 @@ def send_email(body, EMAIL_RECEIVER, EMAIL_TITLE, timeoffset):
         local_now = utc_now.astimezone(local_timezone)
         custom_date = local_now.strftime('%Y-%m-%d')
 
-        # 创建阿里云邮件推送客户端
-        config = open_api_models.Config(
-            access_key_id=ALIYUN_ACCESS_KEY_ID,
-            access_key_secret=ALIYUN_ACCESS_KEY_SECRET
-        )
-        config.endpoint = f'dm.{ALIYUN_REGION}.aliyuncs.com'
-        client = DmClient(config)
-
-        # 构建邮件发送请求
-        single_send_mail_request = dm_models.SingleSendMailRequest(
-            account_name=EMAIL_FROM_ADDRESS,
-            address_type=1,
-            reply_to_address='false',
-            to_address=EMAIL_RECEIVER,
-            subject=f"{EMAIL_TITLE} {custom_date}",
-            html_body=cleaned_body
-        )
-
-        # 发送邮件
-        response = client.single_send_mail(single_send_mail_request)
+        # 构建请求参数
+        params = {
+            'Action': 'SingleSendMail',
+            'Version': '2015-11-23',
+            'AccessKeyId': ALIYUN_ACCESS_KEY_ID,
+            'SignatureMethod': 'HMAC-SHA1',
+            'Timestamp': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'SignatureVersion': '1.0',
+            'SignatureNonce': str(datetime.now().timestamp()).replace('.', ''),
+            'Format': 'JSON',
+            'AccountName': EMAIL_FROM_ADDRESS,
+            'AddressType': '1',
+            'ReplyToAddress': 'false',
+            'ToAddress': EMAIL_RECEIVER,
+            'Subject': f"{EMAIL_TITLE} {custom_date}",
+            'HtmlBody': cleaned_body
+        }
+        
+        # 构建签名字符串
+        sorted_params = sorted(params.items())
+        query_string = '&'.join([f'{quote(k, safe="")}={quote(str(v), safe="")}' for k, v in sorted_params])
+        string_to_sign = f'POST&%2F&{quote(query_string, safe="")}'
+        
+        # 计算签名
+        signature = base64.b64encode(
+            hmac.new(
+                (ALIYUN_ACCESS_KEY_SECRET + '&').encode('utf-8'),
+                string_to_sign.encode('utf-8'),
+                hashlib.sha1
+            ).digest()
+        ).decode('utf-8')
+        
+        params['Signature'] = signature
+        
+        # 发送请求
+        url = 'https://dm.aliyuncs.com/'
+        response = requests.post(url, data=params, timeout=30)
         
         if response.status_code == 200:
-            print("Email sent successfully!")
+            result = response.json()
+            if 'EnvId' in result:
+                print("Email sent successfully!")
+            else:
+                print(f"Failed to send email. Response: {result}")
         else:
-            print(f"Failed to send email. Response: {response.body}")
+            print(f"Failed to send email. Status code: {response.status_code}, Response: {response.text}")
 
     except Exception as e:
         print("An error occurred while sending the email:")

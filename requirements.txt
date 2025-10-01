@@ -4,5 +4,3 @@ python-dotenv
 requests
 pytz
 zhipuai
-alibabacloud_dm20151123
-alibabacloud_tea_openapi
