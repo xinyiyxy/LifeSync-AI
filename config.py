@@ -17,3 +17,6 @@ AI_API_KEY = os.getenv("AI_API_KEY")
 
 # Weather API
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
+
+# Debug config
+SKIP_AI = os.getenv("SKIP_AI", "false").lower() == "true"

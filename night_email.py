@@ -7,6 +7,7 @@ from src.get_wheather import get_weather_forecast
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
 from src.get_notion.event_from_notion import fetch_event_from_notion
+from config import SKIP_AI
 
 # Get the current time in UTC, and then convert to the specified UTC offset
 utc_now = datetime.now(pytz.utc)
@@ -49,7 +50,11 @@ for user_id in user_data:
         "completed_events": events["completed"]
     }
 
-    advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
+    if SKIP_AI:
+        print("SKIP_AI=True, 跳过AI生成建议")
+        advice = "测试邮件 - AI功能已跳过"
+    else:
+        advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
     print("Final advice:\n" + advice)
 
     tittle = "日程晚报"

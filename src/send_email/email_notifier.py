@@ -10,6 +10,21 @@ from config import ALIYUN_ACCESS_KEY_ID, ALIYUN_ACCESS_KEY_SECRET, ALIYUN_REGION
 
 def send_email(body, EMAIL_RECEIVER, EMAIL_TITLE, timeoffset):
     print("Sending email...")
+    
+    # 检查必需的环境变量
+    if not ALIYUN_ACCESS_KEY_ID:
+        print("❌ ALIBABA_CLOUD_ACCESS_KEY_ID not set")
+        return
+    if not ALIYUN_ACCESS_KEY_SECRET:
+        print("❌ ALIBABA_CLOUD_ACCESS_KEY_SECRET not set")
+        return
+    if not EMAIL_FROM_ADDRESS:
+        print("❌ EMAIL_FROM_ADDRESS not set")
+        return
+    
+    print(f"Access Key ID: {ALIYUN_ACCESS_KEY_ID[:10]}...")
+    print(f"From Address: {EMAIL_FROM_ADDRESS}")
+    
     try:
         # 使用正则表达式清理body中的Markdown代码块标记
         cleaned_body = re.sub(r'```(?:html)?', '', body)  # 删除```和```html
@@ -72,4 +87,8 @@ def send_email(body, EMAIL_RECEIVER, EMAIL_TITLE, timeoffset):
 
     except Exception as e:
         print("An error occurred while sending the email:")
-        print(e)
+        print(f"Error type: {type(e).__name__}")
+        print(f"Error message: {str(e)}")
+        import traceback
+        print("Full traceback:")
+        traceback.print_exc()
