@@ -15,14 +15,14 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         - 现在的时间：{local_time}
         - 雇主的时间安排需求，如有冲突可适当调整：{schedule_prompt}
 
-        2. 已有时间安排的日程：
-        - 日程：已规定时间并已经开始了的既定日程，只用放在既定时间段即可：{data['in_progress_events']}
+        2. 正在进行的任务：
+        - 任务：已经开始但还未完成的任务：{data['in_progress_tasks']}
 
         3. 必须安排在今天的任务
         - 任务：今日到期的紧急任务，必须今日内安排：{data['today_tasks']}
 
-        4. 可选安排的任务
-        - 任务：已经开始的任务，如果有空闲可安排（没空就算了）：{data['in_progress_tasks']}
+        4. 未来计划的任务
+        - 任务：未来需要完成的任务，如果今天有空闲可适当安排：{data['future_tasks']}
         """
 
         prompt_for_iter = f"""

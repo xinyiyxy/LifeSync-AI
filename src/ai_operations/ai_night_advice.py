@@ -15,19 +15,13 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         - 现在的时间：{local_time}
         - 雇主的时间安排需求，如有冲突可适当调整：{schedule_prompt}
 
-        2. 时间安排：
-        - 今日进行中的日程：{data['in_progress_events']}
-        - 明天的日程：{data['tomorrow_events']}
-        - 后天及以后的日程：{data['upcoming_events']}
+        2. 今天的任务完成情况：
+        - 今日完成的任务：{data['completed_tasks']}
 
-        3. 今天完成的日程和任务：
-        - 今日完成的日程（如果没有就忽略）：{data['completed_events']}
-        - 今日完成的任务（如果没有就忽略）：{data['completed_tasks']}
-
-        4. 今天还没做完的任务：
+        3. 今天还没做完的任务：
         - 任务：今日到期的紧急任务，必须今日内安排，但是还没做完的任务：{data['today_tasks']}
 
-        5. 其他任务：
+        4. 其他任务：
         - 任务：已经开始的任务，可以提醒要做：{data['in_progress_tasks']}
         - 任务：即将开始的任务，可以提醒要做：{data['future_tasks']}
         """
