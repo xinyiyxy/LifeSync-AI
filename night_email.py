@@ -45,7 +45,8 @@ for user_id in user_data:
     
     # 使用要总结的日期来获取任务
     tasks = fetch_tasks_from_notion(summary_date, user_notion_token, user_database_id, 
-                                  time_zone_offset, include_completed=True)
+                                  time_zone_offset, include_completed=True, 
+                                  day_end_hour=day_end_hour, current_time=local_time)
 
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
     
