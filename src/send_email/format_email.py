@@ -253,7 +253,7 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             .important-notes li {{
                 margin-bottom: 10px;
-                color: #000000 !important;
+                color: #374151 !important;
                 background-color: rgba(255, 255, 255, 0.8) !important;
                 font-size: 15px;
                 font-weight: 700;
@@ -261,7 +261,7 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
                 padding: 8px 12px;
                 border-radius: 4px;
                 border-left: 4px solid #d97706 !important;
-                text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+                text-shadow: 0 0 1px rgba(55, 65, 81, 0.2);
             }}
 
             .important-notes li:last-child {{
@@ -297,21 +297,21 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
                 }}
                 
                 .important-notes h3 {{
-                    color: #ffffff !important;
-                    background-color: #92400e !important;
-                    padding: 8px 12px !important;
-                    border-radius: 4px !important;
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+                    color: #92400e !important;
+                    background-color: transparent !important;
+                    padding: 0 !important;
+                    border-radius: 0 !important;
+                    text-shadow: 0 0 1px rgba(146, 64, 14, 0.3) !important;
                 }}
                 
                 .important-notes li {{
-                    color: #000000 !important;
+                    color: #374151 !important;
                     background-color: rgba(255, 255, 255, 0.9) !important;
                     padding: 6px 10px !important;
                     border-radius: 4px !important;
                     margin-bottom: 12px !important;
                     font-weight: 700 !important;
-                    text-shadow: none !important;
+                    text-shadow: 0 0 1px rgba(55, 65, 81, 0.2) !important;
                 }}
                 
                 .weather-info {{
