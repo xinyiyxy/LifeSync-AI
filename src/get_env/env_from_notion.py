@@ -25,7 +25,8 @@ def get_user_env_vars():
             "USER_DATABASE_ID": page['properties']['USER_DATABASE_ID']['rich_text'][0]['text']['content'],
             "EMAIL_RECEIVER": page['properties']['EMAIL_RECEIVER']['rich_text'][0]['text']['content'],
             "TIME_ZONE": page['properties']['TIME_ZONE']['rich_text'][0]['text']['content'],
-            "EMAIL_TITLE": page['properties']['EMAIL_TITLE']['rich_text'][0]['text']['content']
+            "EMAIL_TITLE": page['properties']['EMAIL_TITLE']['rich_text'][0]['text']['content'],
+            "DAY_END_HOUR": int(page['properties']['DAY_END_HOUR']['rich_text'][0]['text']['content']) if 'DAY_END_HOUR' in page['properties'] and page['properties']['DAY_END_HOUR']['rich_text'] else 6
         }
     print("Enviroments' variables fetched.")
     # print(user_env_vars)

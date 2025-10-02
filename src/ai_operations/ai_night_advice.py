@@ -13,6 +13,8 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         - 雇主职业：{user_career}
         - 雇主所在地：{present_location}
         - 现在的时间：{local_time}
+        - 时间上下文：{data.get('time_context', '正常时间')}
+        - 总结的日期：{data.get('logical_date', '今天')}
         - 雇主的时间安排需求，如有冲突可适当调整：{schedule_prompt}
 
         2. 今天的任务完成情况：

@@ -6,6 +6,7 @@ from src.ai_operations.ai_night_advice import email_advice_with_ai
 from src.get_wheather import get_weather_forecast
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
+from src.utils.time_utils import get_logical_day_dates, get_time_context
 from config import SKIP_AI
 
 # Get the current time in UTC, and then convert to the specified UTC offset
@@ -21,16 +22,28 @@ for user_id in user_data:
     user_career = user_data[user_id]["USER_CAREER"]
     schedule_prompt = user_data[user_id]["SCHEDULE_PROMPT"]
     time_zone_offset = int(user_data[user_id]["TIME_ZONE"])
+    day_end_hour = user_data[user_id]["DAY_END_HOUR"]
 
     # Convert UTC time to user's local time
     local_time = utc_now.astimezone(pytz.timezone(f'Etc/GMT{"+" if time_zone_offset < 0 else "-"}{abs(time_zone_offset)}'))
     print("local_time: \n" + str(local_time))
-    custom_date = local_time.date()
-
-    tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, 
+    
+    # 获取逻辑日期
+    logical_dates = get_logical_day_dates(local_time, day_end_hour, time_zone_offset)
+    logical_today = logical_dates["logical_today"]
+    is_early_morning = logical_dates["is_early_morning"]
+    
+    print(f"Logical today: {logical_today}")
+    print(f"Is early morning: {is_early_morning}")
+    
+    # 使用逻辑上的"今天"来获取任务
+    tasks = fetch_tasks_from_notion(logical_today, user_notion_token, user_database_id, 
                                   time_zone_offset, include_completed=True)
 
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
+    
+    # 获取时间上下文
+    time_context = get_time_context(local_time, day_end_hour, time_zone_offset)
 
     data = {
         "weather": forecast_data['tomorrow'],
@@ -38,7 +51,9 @@ for user_id in user_data:
         "today_tasks": tasks["today_due"],
         "in_progress_tasks": tasks["in_progress"],
         "future_tasks": tasks["future"],
-        "completed_tasks": tasks["completed"]
+        "completed_tasks": tasks["completed"],
+        "time_context": time_context,
+        "logical_date": logical_today.strftime('%Y-%m-%d')
     }
 
     if SKIP_AI:
