@@ -99,9 +99,12 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             .overview-card p {{
                 margin: 0;
-                color: #2c4b6e;
+                color: #000000 !important;
                 font-size: 16px;
+                font-weight: 600;
                 line-height: 1.6;
+                -webkit-text-fill-color: #000000 !important;
+                text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
             }}
 
             /* Weather Display */
@@ -293,6 +296,22 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             /* 深色模式兼容 */
             @media (prefers-color-scheme: dark) {{
+                .overview-card {{
+                    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+                    border: 2px solid #0060e6 !important;
+                }}
+                
+                .overview-card p {{
+                    color: #000000 !important;
+                    background-color: rgba(255, 255, 255, 0.95) !important;
+                    padding: 8px 12px !important;
+                    border-radius: 4px !important;
+                    font-weight: 700 !important;
+                    -webkit-text-fill-color: #000000 !important;
+                    -webkit-font-smoothing: antialiased !important;
+                    border-left: 4px solid #0060e6 !important;
+                }}
+                
                 .important-notes {{
                     background: #fbbf24 !important;
                     border: 3px solid #92400e !important;
