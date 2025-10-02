@@ -76,12 +76,19 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
                     description = ''.join([part['text']['content'] for part in row['properties']['Description']['rich_text']])
                     description = description.replace('\n', ' ').replace('\xa0', ' ').strip()
 
+                # 提取Location
+                location = ''
+                if 'Location' in row['properties'] and 'rich_text' in row['properties']['Location'] and row['properties']['Location']['rich_text']:
+                    location = ''.join([part['text']['content'] for part in row['properties']['Location']['rich_text']])
+                    location = location.replace('\n', ' ').replace('\xa0', ' ').strip()
+
                 # 获取完成状态
                 is_completed = row['properties']['Complete']['checkbox']
 
                 task = {
                     'Name': ''.join([part['text']['content'] for part in row['properties']['Name']['title']]) if row['properties']['Name']['title'] else 'NA',
                     'Description': description if description else 'NA',
+                    'Location': location if location else 'NA',
                     'Urgency Level': urgency_level,
                     'Start Time': start_datetime.strftime('%Y-%m-%d %H:%M') if start_datetime else 'N/A',
                     'End Time': end_datetime.strftime('%Y-%m-%d %H:%M') if end_datetime else 'N/A',

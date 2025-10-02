@@ -127,8 +127,9 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
             }}
 
             .weather-advice {{
-                color: #2c4b6e;
+                color: #1f2937;
                 font-size: 15px;
+                font-weight: 500;
                 background: #f0f7ff;
                 padding: 12px 16px;
                 border-radius: 6px;
@@ -233,7 +234,8 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
             .important-notes h3 {{
                 margin: 0 0 12px 0;
                 font-size: 18px;
-                color: #b45309;
+                color: #d97706;
+                font-weight: 700;
             }}
 
             .important-notes ul {{
@@ -243,8 +245,9 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             .important-notes li {{
                 margin-bottom: 8px;
-                color: #92400e;
+                color: #1f2937;
                 font-size: 15px;
+                font-weight: 500;
                 line-height: 1.5;
             }}
 
