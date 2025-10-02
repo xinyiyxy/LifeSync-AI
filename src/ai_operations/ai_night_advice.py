@@ -42,6 +42,15 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         2. 对每个已完成的事项进行简要点评，表扬完成得好的，对未完全达标的给出改进建议
         3. 如果今天没有完成任何事项，直接说明"今天暂无完成的事项（任务）"
 
+        你要做的事情 一点五（新增）：
+        为今天的成功日记部分准备内容，记录今天所有值得庆祝的成功，不管多小：
+        1. 从完成的任务中提取成功点
+        2. 识别过程中的积极表现和进步
+        3. 发现日常生活中的小成就
+        4. 用第一人称、积极正面的语调描述
+        5. 每个成功点要具体、真实、可感知
+        6. 即使今天没有完成大任务，也要找到值得记录的小成功
+
         你要做的事情 二：
         判断还有没有未完成的任务，如果有，就对于每个任务详细分析：
         1. 每个任务是什么，详细解析一下
@@ -145,7 +154,28 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
             </div>
         </div>
 
-        4. 建议事项：
+        4. 成功日记：
+        <div class="section">
+            <div class="section-header">
+                <h2><strong>✨ 成功日记</strong></h2>
+            </div>
+            <div class="section-content">
+                <div class="overview-card">
+                    <h3>老板，我已经帮您写好了今天的成功日记，您可以直接复制到日记本里啦！</h3>
+                    <div class="diary-content">
+                        <p><strong>今天的成功记录：</strong></p>
+                        <ul class="success-list">
+                            <li>✅ [具体的成功事项，用第一人称描述]</li>
+                            <li>✅ [另一个成功点，不管多小都值得记录]</li>
+                            <li>✅ [积极的表现或进步]</li>
+                        </ul>
+                        <p class="diary-reflection">[对今天成功的感悟和感激，积极正面的总结]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        5. 建议事项：
         <div class="section">
             <div class="section-header">
                 <h2><strong>💡 建议事项</strong></h2>
@@ -162,12 +192,13 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
         1. 今日总结要客观公正，既肯定成绩也指出不足
         2. 待处理事项要给出具体可行的建议
         3. 明日预览要突出重点，并给出准备建议
-        4. 根据事项状态使用不同的标签：
+        4. 成功日记要体现《小狗钱钱》的理念：记录所有成功，不管多小，用积极语调，第一人称描述，帮助建立成功意识
+        5. 根据事项状态使用不同的标签：
            - task-priority-low：已完成的事项
            - task-priority-high：待处理的紧急事项
            - task-priority-medium：明日待办事项
-        5. 所有建议要具体且可执行
-        6. 语气要专业、积极、鼓励
+        6. 所有建议要具体且可执行
+        7. 语气要专业、积极、鼓励
 
         相关信息：
         {prompt_info}
