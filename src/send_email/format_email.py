@@ -252,12 +252,16 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
             }}
 
             .important-notes li {{
-                margin-bottom: 8px;
-                color: #1c1917 !important;
+                margin-bottom: 10px;
+                color: #000000 !important;
+                background-color: rgba(255, 255, 255, 0.8) !important;
                 font-size: 15px;
-                font-weight: 600;
+                font-weight: 700;
                 line-height: 1.5;
-                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
+                padding: 8px 12px;
+                border-radius: 4px;
+                border-left: 4px solid #d97706 !important;
+                text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
             }}
 
             .important-notes li:last-child {{
@@ -288,16 +292,26 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
             /* 深色模式兼容 */
             @media (prefers-color-scheme: dark) {{
                 .important-notes {{
-                    background: #fef3c7 !important;
-                    border: 2px solid #d97706 !important;
+                    background: #fbbf24 !important;
+                    border: 3px solid #92400e !important;
                 }}
                 
                 .important-notes h3 {{
-                    color: #78350f !important;
+                    color: #ffffff !important;
+                    background-color: #92400e !important;
+                    padding: 8px 12px !important;
+                    border-radius: 4px !important;
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
                 }}
                 
                 .important-notes li {{
-                    color: #1c1917 !important;
+                    color: #000000 !important;
+                    background-color: rgba(255, 255, 255, 0.9) !important;
+                    padding: 6px 10px !important;
+                    border-radius: 4px !important;
+                    margin-bottom: 12px !important;
+                    font-weight: 700 !important;
+                    text-shadow: none !important;
                 }}
                 
                 .weather-info {{
