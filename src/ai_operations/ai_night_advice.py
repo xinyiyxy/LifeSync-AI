@@ -7,6 +7,12 @@ import re
 def email_advice_with_ai(data, ai_version, present_location, user_career, local_time, schedule_prompt=""):
     print("\nGenerating advice with gpt...")
     try:
+        # Debug: Print the completed tasks data
+        print(f"\n=== DEBUG: AI Input Data ===")
+        print(f"Completed tasks count: {len(data['completed_tasks']) if isinstance(data['completed_tasks'], list) else 'Not a list'}")
+        print(f"Completed tasks data: {data['completed_tasks']}")
+        print(f"=== END DEBUG ===\n")
+        
         prompt_info = f"""
         1. 基础信息：
         - 天气信息：{data['weather']}

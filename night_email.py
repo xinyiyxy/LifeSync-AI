@@ -4,7 +4,7 @@ from src.get_notion.task_from_notion import fetch_tasks_from_notion
 from src.send_email.email_notifier import send_email
 from src.ai_operations.ai_night_advice import email_advice_with_ai
 from src.get_wheather import get_weather_forecast
-from datetime import datetime
+from datetime import datetime, timedelta
 from src.get_env.env_from_notion import get_user_env_vars
 from src.utils.time_utils import get_logical_day_dates, get_time_context
 from config import SKIP_AI
@@ -51,6 +51,17 @@ for user_id in user_data:
     
     # 获取时间上下文
     time_context = get_time_context(local_time, day_end_hour, time_zone_offset)
+
+    # Debug: Print the tasks data to understand what's being fetched
+    print(f"\n=== DEBUG: Tasks Data ===")
+    print(f"Today due tasks: {len(tasks['today_due'])} items")
+    print(f"In progress tasks: {len(tasks['in_progress'])} items")
+    print(f"Future tasks: {len(tasks['future'])} items")
+    print(f"Completed tasks: {len(tasks['completed'])} items")
+    print(f"Completed tasks content: {tasks['completed']}")
+    print(f"Summary date used for query: {summary_date}")
+    print(f"Today start/end range for completed task detection: {summary_date} to {summary_date + timedelta(days=1)}")
+    print(f"=== END DEBUG ===\n")
 
     data = {
         "weather": forecast_data['tomorrow'],

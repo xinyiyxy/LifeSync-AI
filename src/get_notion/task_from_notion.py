@@ -99,8 +99,13 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
 
                 # 根据完成状态和最后编辑时间分类任务
                 if is_completed:
-                    if include_completed and today_start <= last_edited_time < today_end:
-                        tasks["completed"].append(task)
+                    if include_completed:
+                        print(f"DEBUG: Found completed task '{task['Name']}' - Last edited: {last_edited_time}, Today range: {today_start} to {today_end}, In range: {today_start <= last_edited_time < today_end}")
+                        if today_start <= last_edited_time < today_end:
+                            tasks["completed"].append(task)
+                            print(f"DEBUG: Added completed task to list: {task['Name']}")
+                        else:
+                            print(f"DEBUG: Completed task '{task['Name']}' was not edited today, skipping")
                 else:
                     if end_datetime and end_datetime.date() == today:
                         tasks["today_due"].append(task)
