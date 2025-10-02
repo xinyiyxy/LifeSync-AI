@@ -253,15 +253,17 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             .important-notes li {{
                 margin-bottom: 10px;
-                color: #374151 !important;
-                background-color: rgba(255, 255, 255, 0.8) !important;
+                color: #000000 !important;
+                background-color: rgba(255, 255, 255, 0.95) !important;
                 font-size: 15px;
                 font-weight: 700;
                 line-height: 1.5;
                 padding: 8px 12px;
                 border-radius: 4px;
                 border-left: 4px solid #d97706 !important;
-                text-shadow: 0 0 1px rgba(55, 65, 81, 0.2);
+                text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+                -webkit-text-fill-color: #000000 !important;
+                -webkit-font-smoothing: antialiased;
             }}
 
             .important-notes li:last-child {{
@@ -305,13 +307,17 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
                 }}
                 
                 .important-notes li {{
-                    color: #374151 !important;
-                    background-color: rgba(255, 255, 255, 0.9) !important;
-                    padding: 6px 10px !important;
+                    color: #000000 !important;
+                    background-color: #ffffff !important;
+                    padding: 8px 12px !important;
                     border-radius: 4px !important;
                     margin-bottom: 12px !important;
                     font-weight: 700 !important;
-                    text-shadow: 0 0 1px rgba(55, 65, 81, 0.2) !important;
+                    text-shadow: none !important;
+                    -webkit-text-fill-color: #000000 !important;
+                    -webkit-font-smoothing: antialiased !important;
+                    border: 2px solid #d97706 !important;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
                 }}
                 
                 .weather-info {{
