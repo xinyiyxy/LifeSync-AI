@@ -84,27 +84,40 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             /* Overview Card */
             .overview-card {{
-                background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+                background: #f0f9ff !important;
+                border: 2px solid #0369a1 !important;
                 border-radius: 8px;
                 padding: 20px;
                 margin-bottom: 24px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }}
 
             .overview-card h3 {{
-                margin: 0 0 12px 0;
+                margin: 0 0 16px 0;
                 font-size: 18px;
-                color: #0060e6;
+                color: #0c4a6e !important;
+                font-weight: 700;
+                text-shadow: 0 0 1px rgba(12, 74, 110, 0.3);
             }}
 
-            .overview-card p {{
-                margin: 0;
-                color: #000000 !important;
+            .overview-card-summary {{
+                color: #1c1917 !important;
                 font-size: 16px;
                 font-weight: 600;
                 line-height: 1.6;
-                -webkit-text-fill-color: #000000 !important;
-                text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+                margin-bottom: 16px;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
+            }}
+
+            .overview-card-details {{
+                color: #1c1917 !important;
+                font-size: 15px;
+                font-weight: 600;
+                background: #e0f2fe !important;
+                padding: 12px 16px;
+                border-radius: 6px;
+                border-left: 4px solid #0369a1 !important;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             /* Weather Display */
@@ -297,19 +310,21 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
             /* 深色模式兼容 */
             @media (prefers-color-scheme: dark) {{
                 .overview-card {{
-                    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-                    border: 2px solid #0060e6 !important;
+                    background: #e0f2fe !important;
+                    border: 2px solid #0369a1 !important;
                 }}
                 
-                .overview-card p {{
-                    color: #000000 !important;
-                    background-color: rgba(255, 255, 255, 0.95) !important;
-                    padding: 8px 12px !important;
-                    border-radius: 4px !important;
-                    font-weight: 700 !important;
-                    -webkit-text-fill-color: #000000 !important;
-                    -webkit-font-smoothing: antialiased !important;
-                    border-left: 4px solid #0060e6 !important;
+                .overview-card h3 {{
+                    color: #0c4a6e !important;
+                }}
+                
+                .overview-card-summary,
+                .overview-card-details {{
+                    color: #1c1917 !important;
+                }}
+                
+                .overview-card-details {{
+                    background: #e0f2fe !important;
                 }}
                 
                 .important-notes {{

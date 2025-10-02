@@ -53,7 +53,8 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
             <div class="section-content">
                 <div class="overview-card">
                     <h3>今日重点关注</h3>
-                    <p>[一句话概述今天最重要的1-2件事，务必简洁有力]</p>
+                    <p class="overview-card-summary">[一句话概述今天最重要的1-2件事，务必简洁有力]</p>
+                    <p class="overview-card-details">[详细说明今日的核心任务安排、时间分配建议，以及需要特别注意的事项]</p>
                 </div>
                 
                 <div class="weather-info">

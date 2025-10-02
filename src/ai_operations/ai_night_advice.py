@@ -64,7 +64,8 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
             <div class="section-content">
                 <div class="overview-card">
                     <h3>完成概述</h3>
-                    <p>[简要总结今天的完成情况]</p>
+                    <p class="overview-card-summary">[简要总结今天的完成情况和整体表现]</p>
+                    <p class="overview-card-details">[详细评价今日工作效率、完成质量，以及对明日工作的建议和规划]</p>
                 </div>
                 
                 <ul class="timeline">
