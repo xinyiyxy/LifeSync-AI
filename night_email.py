@@ -36,8 +36,15 @@ for user_id in user_data:
     print(f"Logical today: {logical_today}")
     print(f"Is early morning: {is_early_morning}")
     
-    # 使用逻辑上的"今天"来获取任务
-    tasks = fetch_tasks_from_notion(logical_today, user_notion_token, user_database_id, 
+    # 晚报总结的是刚刚结束的那一天的任务
+    # 如果是凌晨（还没到新一天开始），总结的应该是logical_today
+    # 如果是正常时间，总结的也是logical_today
+    summary_date = logical_today
+    
+    print(f"Summary date for night report: {summary_date}")
+    
+    # 使用要总结的日期来获取任务
+    tasks = fetch_tasks_from_notion(summary_date, user_notion_token, user_database_id, 
                                   time_zone_offset, include_completed=True)
 
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
@@ -53,7 +60,7 @@ for user_id in user_data:
         "future_tasks": tasks["future"],
         "completed_tasks": tasks["completed"],
         "time_context": time_context,
-        "logical_date": logical_today.strftime('%Y-%m-%d')
+        "logical_date": summary_date.strftime('%Y-%m-%d')
     }
 
     if SKIP_AI:
