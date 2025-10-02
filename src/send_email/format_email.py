@@ -106,34 +106,40 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             /* Weather Display */
             .weather-info {{
-                background: linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+                background: #f0f9ff !important;
+                border: 2px solid #0369a1 !important;
                 border-radius: 8px;
                 padding: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 margin-bottom: 24px;
             }}
 
             .weather-info h3 {{
                 margin: 0 0 16px 0;
                 font-size: 18px;
-                color: #0060e6;
+                color: #0c4a6e !important;
+                font-weight: 700;
+                text-shadow: 0 0 1px rgba(12, 74, 110, 0.3);
             }}
 
             .weather-summary {{
-                color: #1a2b42;
+                color: #1c1917 !important;
                 font-size: 16px;
+                font-weight: 600;
                 line-height: 1.6;
                 margin-bottom: 16px;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             .weather-advice {{
-                color: #1f2937;
+                color: #1c1917 !important;
                 font-size: 15px;
-                font-weight: 500;
-                background: #f0f7ff;
+                font-weight: 600;
+                background: #e0f2fe !important;
                 padding: 12px 16px;
                 border-radius: 6px;
-                border-left: 4px solid #0060e6;
+                border-left: 4px solid #0369a1 !important;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             /* Timeline */
@@ -225,17 +231,19 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             /* Important Notes */
             .important-notes {{
-                background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+                background: #fef7e6 !important;
+                border: 2px solid #d97706 !important;
                 border-radius: 8px;
                 padding: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }}
 
             .important-notes h3 {{
                 margin: 0 0 12px 0;
                 font-size: 18px;
-                color: #d97706;
+                color: #92400e !important;
                 font-weight: 700;
+                text-shadow: 0 0 1px rgba(146, 64, 14, 0.3);
             }}
 
             .important-notes ul {{
@@ -245,10 +253,11 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             .important-notes li {{
                 margin-bottom: 8px;
-                color: #1f2937;
+                color: #1c1917 !important;
                 font-size: 15px;
-                font-weight: 500;
+                font-weight: 600;
                 line-height: 1.5;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             .important-notes li:last-child {{
@@ -274,6 +283,40 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
                 font-style: italic;
                 color: #0060e6;
                 margin-top: 8px;
+            }}
+
+            /* 深色模式兼容 */
+            @media (prefers-color-scheme: dark) {{
+                .important-notes {{
+                    background: #fef3c7 !important;
+                    border: 2px solid #d97706 !important;
+                }}
+                
+                .important-notes h3 {{
+                    color: #78350f !important;
+                }}
+                
+                .important-notes li {{
+                    color: #1c1917 !important;
+                }}
+                
+                .weather-info {{
+                    background: #e0f2fe !important;
+                    border: 2px solid #0369a1 !important;
+                }}
+                
+                .weather-info h3 {{
+                    color: #0c4a6e !important;
+                }}
+                
+                .weather-summary,
+                .weather-advice {{
+                    color: #1c1917 !important;
+                }}
+                
+                .weather-advice {{
+                    background: #e0f2fe !important;
+                }}
             }}
 
             @media screen and (max-width: 600px) {{
