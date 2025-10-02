@@ -84,55 +84,78 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             /* Overview Card */
             .overview-card {{
-                background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+                background: #f0f9ff !important;
+                border: 2px solid #0369a1 !important;
                 border-radius: 8px;
                 padding: 20px;
                 margin-bottom: 24px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }}
 
             .overview-card h3 {{
-                margin: 0 0 12px 0;
+                margin: 0 0 16px 0;
                 font-size: 18px;
-                color: #0060e6;
+                color: #0c4a6e !important;
+                font-weight: 700;
+                text-shadow: 0 0 1px rgba(12, 74, 110, 0.3);
             }}
 
-            .overview-card p {{
-                margin: 0;
-                color: #2c4b6e;
+            .overview-card-summary {{
+                color: #1c1917 !important;
                 font-size: 16px;
+                font-weight: 600;
                 line-height: 1.6;
+                margin-bottom: 16px;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
+            }}
+
+            .overview-card-details {{
+                color: #1c1917 !important;
+                font-size: 15px;
+                font-weight: 600;
+                background: #e0f2fe !important;
+                padding: 12px 16px;
+                border-radius: 6px;
+                border-left: 4px solid #0369a1 !important;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             /* Weather Display */
             .weather-info {{
-                background: linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+                background: #f0f9ff !important;
+                border: 2px solid #0369a1 !important;
                 border-radius: 8px;
                 padding: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 margin-bottom: 24px;
             }}
 
             .weather-info h3 {{
                 margin: 0 0 16px 0;
                 font-size: 18px;
-                color: #0060e6;
+                color: #0c4a6e !important;
+                font-weight: 700;
+                text-shadow: 0 0 1px rgba(12, 74, 110, 0.3);
             }}
 
             .weather-summary {{
-                color: #1a2b42;
+                color: #1c1917 !important;
                 font-size: 16px;
+                font-weight: 600;
                 line-height: 1.6;
                 margin-bottom: 16px;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             .weather-advice {{
-                color: #2c4b6e;
+                color: #1c1917 !important;
                 font-size: 15px;
-                background: #f0f7ff;
+                font-weight: 600;
+                background: #e0f2fe !important;
                 padding: 12px 16px;
                 border-radius: 6px;
-                border-left: 4px solid #0060e6;
+                border-left: 4px solid #0369a1 !important;
+                text-shadow: 0 0 1px rgba(28, 25, 23, 0.1);
             }}
 
             /* Timeline */
@@ -224,16 +247,19 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
 
             /* Important Notes */
             .important-notes {{
-                background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+                background: #fef7e6 !important;
+                border: 2px solid #d97706 !important;
                 border-radius: 8px;
                 padding: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }}
 
             .important-notes h3 {{
                 margin: 0 0 12px 0;
                 font-size: 18px;
-                color: #b45309;
+                color: #92400e !important;
+                font-weight: 700;
+                text-shadow: 0 0 1px rgba(146, 64, 14, 0.3);
             }}
 
             .important-notes ul {{
@@ -242,10 +268,18 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
             }}
 
             .important-notes li {{
-                margin-bottom: 8px;
-                color: #92400e;
+                margin-bottom: 10px;
+                color: #000000 !important;
+                background-color: rgba(255, 255, 255, 0.95) !important;
                 font-size: 15px;
+                font-weight: 700;
                 line-height: 1.5;
+                padding: 8px 12px;
+                border-radius: 4px;
+                border-left: 4px solid #d97706 !important;
+                text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+                -webkit-text-fill-color: #000000 !important;
+                -webkit-font-smoothing: antialiased;
             }}
 
             .important-notes li:last-child {{
@@ -271,6 +305,72 @@ def format_email(advice, USER_NAME, title, time_of_day="morning"):
                 font-style: italic;
                 color: #0060e6;
                 margin-top: 8px;
+            }}
+
+            /* 深色模式兼容 */
+            @media (prefers-color-scheme: dark) {{
+                .overview-card {{
+                    background: #e0f2fe !important;
+                    border: 2px solid #0369a1 !important;
+                }}
+                
+                .overview-card h3 {{
+                    color: #0c4a6e !important;
+                }}
+                
+                .overview-card-summary,
+                .overview-card-details {{
+                    color: #1c1917 !important;
+                }}
+                
+                .overview-card-details {{
+                    background: #e0f2fe !important;
+                }}
+                
+                .important-notes {{
+                    background: #fbbf24 !important;
+                    border: 3px solid #92400e !important;
+                }}
+                
+                .important-notes h3 {{
+                    color: #92400e !important;
+                    background-color: transparent !important;
+                    padding: 0 !important;
+                    border-radius: 0 !important;
+                    text-shadow: 0 0 1px rgba(146, 64, 14, 0.3) !important;
+                }}
+                
+                .important-notes li {{
+                    color: #000000 !important;
+                    background-color: #ffffff !important;
+                    padding: 8px 12px !important;
+                    border-radius: 4px !important;
+                    margin-bottom: 12px !important;
+                    font-weight: 700 !important;
+                    text-shadow: none !important;
+                    -webkit-text-fill-color: #000000 !important;
+                    -webkit-font-smoothing: antialiased !important;
+                    border: 2px solid #d97706 !important;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+                }}
+                
+                .weather-info {{
+                    background: #e0f2fe !important;
+                    border: 2px solid #0369a1 !important;
+                }}
+                
+                .weather-info h3 {{
+                    color: #0c4a6e !important;
+                }}
+                
+                .weather-summary,
+                .weather-advice {{
+                    color: #1c1917 !important;
+                }}
+                
+                .weather-advice {{
+                    background: #e0f2fe !important;
+                }}
             }}
 
             @media screen and (max-width: 600px) {{

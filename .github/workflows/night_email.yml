@@ -2,7 +2,7 @@ name: Night Report
 
 on:
   schedule:
-    - cron: '0 14 * * *'  # 每天 22 点 UTC 时间
+    - cron: '0 17 * * *'  # UTC
   workflow_dispatch:
 
 jobs:
@@ -26,9 +26,12 @@ jobs:
       env:
         ENV_NOTION_TOKEN: ${{ secrets.ENV_NOTION_TOKEN }}
         ENV_DATABASE_ID: ${{ secrets.ENV_DATABASE_ID }}
-        MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
-        MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+        ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_ID }}
+        ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIBABA_CLOUD_ACCESS_KEY_SECRET }}
+        EMAIL_FROM_ADDRESS: ${{ secrets.EMAIL_FROM_ADDRESS }}
+        ALIYUN_REGION: ${{ secrets.ALIYUN_REGION }}
         AI_API_KEY: ${{ secrets.AI_API_KEY }}
         OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        SKIP_AI: ${{ secrets.SKIP_AI }}
       run: |
         python night_email.py

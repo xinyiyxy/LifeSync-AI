@@ -6,7 +6,7 @@ from src.ai_operations.ai_night_advice import email_advice_with_ai
 from src.get_wheather import get_weather_forecast
 from datetime import datetime
 from src.get_env.env_from_notion import get_user_env_vars
-from src.get_notion.event_from_notion import fetch_event_from_notion
+from config import SKIP_AI
 
 # Get the current time in UTC, and then convert to the specified UTC offset
 utc_now = datetime.now(pytz.utc)
@@ -15,7 +15,6 @@ user_data = get_user_env_vars()
 for user_id in user_data:
     user_notion_token = user_data[user_id]["USER_NOTION_TOKEN"]
     user_database_id = user_data[user_id]["USER_DATABASE_ID"]
-    user_event_database_id = user_data[user_id]["USER_EVENT_DATABASE_ID"]
     gpt_version = user_data[user_id]["GPT_VERSION"]
     present_location = user_data[user_id]["PRESENT_LOCATION"]
     user_name = user_data[user_id]["USER_NAME"]
@@ -29,9 +28,7 @@ for user_id in user_data:
     custom_date = local_time.date()
 
     tasks = fetch_tasks_from_notion(custom_date, user_notion_token, user_database_id, 
-                                  time_zone_offset, include_completed=True)  # 修正变量名
-    events = fetch_event_from_notion(custom_date, user_notion_token, user_event_database_id,
-                                   time_zone_offset, include_completed=True)  # 修正变量名
+                                  time_zone_offset, include_completed=True)
 
     forecast_data = get_weather_forecast(present_location, time_zone_offset)
 
@@ -41,15 +38,14 @@ for user_id in user_data:
         "today_tasks": tasks["today_due"],
         "in_progress_tasks": tasks["in_progress"],
         "future_tasks": tasks["future"],
-        "completed_tasks": tasks["completed"],
-        # events
-        "in_progress_events": events["in_progress"],
-        "tomorrow_events": events["tomorrow"],     # 注意这里改成了tomorrow
-        "upcoming_events": events["upcoming"],     # 后天及以后的事件
-        "completed_events": events["completed"]
+        "completed_tasks": tasks["completed"]
     }
 
-    advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
+    if SKIP_AI:
+        print("SKIP_AI=True, 跳过AI生成建议")
+        advice = "测试邮件 - AI功能已跳过"
+    else:
+        advice = email_advice_with_ai(data, gpt_version, present_location, user_career, local_time, schedule_prompt)
     print("Final advice:\n" + advice)
 
     tittle = "日程晚报"
