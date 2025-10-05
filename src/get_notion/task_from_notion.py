@@ -25,21 +25,18 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
         # 创建时区对象
         tz = pytz.FixedOffset(timezone_offset * 60)  # 转换为分钟
         
-        # 获取今天的开始和结束时间点
+        # 获取逻辑日的开始和结束时间点（基于DAY_END_HOUR）
         today = custom_date
         tomorrow = today + timedelta(days=1)
-        today_start = datetime.combine(today, datetime.min.time()).replace(tzinfo=tz)
-        today_end = datetime.combine(tomorrow, datetime.min.time()).replace(tzinfo=tz)
         
-        # 如果是凌晨时间（在day_end_hour之前），需要扩展completed task的时间范围
-        # 包含到当前时间为止的任务完成情况
-        if current_time and current_time.hour < day_end_hour:
-            # 凌晨时间，需要包含到当前时间的任务完成
-            completed_end_time = current_time
-            print(f"DEBUG: Early morning detected, extending completed task range to current time: {completed_end_time}")
-        else:
-            # 正常时间，只看到今天结束
-            completed_end_time = today_end
+        # 正确的逻辑日边界：从DAY_END_HOUR到DAY_END_HOUR
+        today_start = datetime.combine(today, datetime.min.time().replace(hour=day_end_hour)).replace(tzinfo=tz)
+        today_end = datetime.combine(tomorrow, datetime.min.time().replace(hour=day_end_hour)).replace(tzinfo=tz)
+        
+        # 已完成任务的时间范围始终是逻辑日的开始到结束
+        # 不再需要扩展到当前时间，因为使用Completed Time字段
+        completed_end_time = today_end
+        print(f"DEBUG: Using logical day range for completed tasks: {today_start} to {completed_end_time}")
 
         # 查询数据库
         filter_conditions = {
@@ -72,6 +69,11 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
             if 'date' in row['properties']['Date'] and row['properties']['Date']['date']:
                 # 获取任务的最后编辑时间，并转换为用户时区
                 last_edited_time = datetime.fromisoformat(row['last_edited_time'].replace('Z', '+00:00')).astimezone(tz)
+                
+                # 获取Completed Time字段
+                completed_time = None
+                if 'Completed Time' in row['properties'] and row['properties']['Completed Time']['date']:
+                    completed_time = datetime.fromisoformat(row['properties']['Completed Time']['date']['start']).astimezone(tz)
                 
                 date_info = row['properties']['Date']['date']
                 
@@ -106,18 +108,23 @@ def fetch_tasks_from_notion(custom_date, USER_NOTION_TOKEN, USER_DATABASE_ID, ti
                     'End Time': end_datetime.strftime('%Y-%m-%d %H:%M') if end_datetime else 'N/A',
                     'Completed': is_completed,
                     'Last Edited': last_edited_time.strftime('%Y-%m-%d %H:%M'),
+                    'Completed Time': completed_time.strftime('%Y-%m-%d %H:%M') if completed_time else 'N/A',
                     'Status': 'Completed' if is_completed else 'In Progress'
                 }
 
-                # 根据完成状态和最后编辑时间分类任务
+                # 根据完成状态和完成时间分类任务
                 if is_completed:
                     if include_completed:
-                        print(f"DEBUG: Found completed task '{task['Name']}' - Last edited: {last_edited_time}, Range: {today_start} to {completed_end_time}, In range: {today_start <= last_edited_time < completed_end_time}")
-                        if today_start <= last_edited_time < completed_end_time:
-                            tasks["completed"].append(task)
-                            print(f"DEBUG: Added completed task to list: {task['Name']}")
+                        # 使用Completed Time字段进行筛选，如果字段为空则跳过
+                        if completed_time:
+                            print(f"DEBUG: Found completed task '{task['Name']}' - Completed time: {completed_time}, Range: {today_start} to {completed_end_time}, In range: {today_start <= completed_time < completed_end_time}")
+                            if today_start <= completed_time < completed_end_time:
+                                tasks["completed"].append(task)
+                                print(f"DEBUG: Added completed task to list: {task['Name']}")
+                            else:
+                                print(f"DEBUG: Completed task '{task['Name']}' was not completed in range, skipping")
                         else:
-                            print(f"DEBUG: Completed task '{task['Name']}' was not edited in range, skipping")
+                            print(f"DEBUG: Completed task '{task['Name']}' has no Completed Time, skipping")
                 else:
                     if end_datetime and end_datetime.date() == today:
                         tasks["today_due"].append(task)
