@@ -228,7 +228,7 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
                 temperature=0.3
             )
         elif "glm" in ai_version.lower():
-            client = ZhipuAI(AI_API_KEY)
+            client = ZhipuAI(api_key=AI_API_KEY)
             response = client.chat.completions.create(
                 model=ai_version,
                 messages=[
