@@ -238,7 +238,7 @@ def email_advice_with_ai(data, ai_version, present_location, user_career, local_
                 temperature=0.3
             )
         print("Generated.\n")
-        return re.sub(r'<body>|</body>|```html?|```', '', response['choices'][0]['message']['content'].strip() if response['choices'] else "No guidance provided.")
+        return re.sub(r'<body>|</body>|```html?|```', '', response.choices[0].message.content.strip() if response.choices else "No guidance provided.")
     except Exception as e:
         print(f"Error interacting with model: {e}")
         return "There was an error generating advice."
