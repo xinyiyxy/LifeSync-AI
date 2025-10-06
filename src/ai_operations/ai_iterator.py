@@ -19,10 +19,10 @@ def iterator(prompt, ai_version):
                 temperature=0.3
             )
             # 直接返回生成的内容部分
-            return response['choices'][0]['message']['content'].strip()
+            return response.choices[0].message.content.strip()
         
         elif "glm" in ai_version.lower():
-            client = ZhipuAI(AI_API_KEY)
+            client = ZhipuAI(api_key=AI_API_KEY)
             response = client.chat.completions.create(
                 model=ai_version,
                 messages=[
@@ -32,7 +32,7 @@ def iterator(prompt, ai_version):
                 temperature=0.3
             )
             # 直接返回生成的内容部分
-            return response['choices'][0]['message']['content'].strip()
+            return response.choices[0].message.content.strip()
         
     except Exception as e:
         print(f"Error interacting with model: {e}")
