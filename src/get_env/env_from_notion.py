@@ -5,7 +5,7 @@ def get_user_env_vars():
     print("get users' enviroments' variables")
     # 查询数据库
     notion = Client(auth=ENV_NOTION_TOKEN)
-    response = notion.databases.query(ENV_DATABASE_ID)
+    response = notion.databases.query(database_id=ENV_DATABASE_ID)
 
     # 存储用户环境变量的字典
     user_env_vars = {}
